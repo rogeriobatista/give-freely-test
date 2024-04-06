@@ -1,0 +1,10 @@
+version: '3'
+services:
+  api:
+    build: .
+    environment:
+      ASPNET_VERSION: "8.0"
+      DOTNET_VERSION: "8.0"
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "8080:80"
