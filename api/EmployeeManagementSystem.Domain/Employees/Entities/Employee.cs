@@ -31,7 +31,8 @@ namespace EmployeeManagementSystem.Domain.Employees.Entities
                 .NotEmpty();
 
             RuleFor(_ => _.Email)
-                .NotEmpty();
+                .NotEmpty()
+                .EmailAddress();
 
             RuleFor(_ => _.JobTitle)
                 .NotEmpty();

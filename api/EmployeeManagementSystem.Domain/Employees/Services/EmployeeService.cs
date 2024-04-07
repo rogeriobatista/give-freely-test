@@ -2,6 +2,7 @@
 using EmployeeManagementSystem.Domain.Employees.Dtos;
 using EmployeeManagementSystem.Domain.Employees.Entities;
 using EmployeeManagementSystem.Domain.Employees.Interfaces;
+using EmployeeManagementSystem.Domain.Users.Interfaces;
 
 namespace EmployeeManagementSystem.Domain.Employees.Services
 {
@@ -10,7 +11,7 @@ namespace EmployeeManagementSystem.Domain.Employees.Services
         private readonly IEmployeeRepository _repository;
         private readonly IMapper _mapper;
 
-        public EmployeeService(IEmployeeRepository repository, IMapper mapper)
+        public EmployeeService(IEmployeeRepository repository, IMapper mapper, IUserService userService)
         {
             _repository = repository;
             _mapper = mapper;

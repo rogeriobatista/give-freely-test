@@ -4,7 +4,7 @@ import { useAppSelector } from 'store/hooks';
 
 export function PrivateRoute({ children }: { children: JSX.Element }) {
   const location = useLocation();
-  const { isLoggedIn } = useAppSelector(state => state.login)
+  const isLoggedIn = !!localStorage.getItem('accessToken');
 
   return (
     !isLoggedIn ? (

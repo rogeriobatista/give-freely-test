@@ -14,6 +14,7 @@ namespace EmployeeManagementSystem.Infra.Data.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.AddConfiguration(new EmployeeMapping());
+            modelBuilder.AddConfiguration(new UserMapping());
         }
     }
 }

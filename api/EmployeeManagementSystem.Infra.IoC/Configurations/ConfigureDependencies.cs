@@ -6,6 +6,8 @@ using EmployeeManagementSystem.Domain.Employees.Services;
 using EmployeeManagementSystem.Infra.Data.Contexts;
 using EmployeeManagementSystem.Infra.Data.Repositories;
 using EmployeeManagementSystem.Infra.Data.UnityOfWork;
+using EmployeeManagementSystem.Domain.Users.Interfaces;
+using EmployeeManagementSystem.Domain.Users.Services;
 
 namespace EmployeeManagementSystem.Infra.IoC.Configurations
 {
@@ -22,6 +24,10 @@ namespace EmployeeManagementSystem.Infra.IoC.Configurations
         public static void AddApplicationDependecies(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUnityOfWork, UnitOfWork>();
+            services.AddSingleton<IAuthService, AuthService>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();

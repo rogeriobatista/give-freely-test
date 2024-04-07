@@ -1,4 +1,4 @@
-import { Button, Checkbox, Col, Form, Input, Row, message } from 'antd';
+import { Button, Col, Form, Input, Row, message } from 'antd';
 import { useNavigate } from 'react-router-dom'
 import { SignInAsync } from 'service/auth';
 import { useDispatch } from 'react-redux';
@@ -6,7 +6,7 @@ import { login } from 'store/login';
 
 
 type FieldType = {
-  username?: string;
+  email?: string;
   password?: string;
   remember?: string;
 };
@@ -25,7 +25,7 @@ const SignInPage = () => {
 
       messageApi.open({
         type: 'error',
-        content: "Ocorreu uma falha, confira os dados e tente novamente",
+        content: "Invalid credentials",
       });
     })
   };
@@ -53,7 +53,7 @@ const SignInPage = () => {
           >
             <Form.Item<FieldType>
               label="Email"
-              name="username"
+              name="email"
               rules={[{ required: true, message: 'Please inform your user!' }]}
             >
               <Input />

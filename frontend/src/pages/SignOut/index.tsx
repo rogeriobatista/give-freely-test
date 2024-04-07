@@ -8,7 +8,7 @@ const SignOutPage = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(logout);
+    dispatch(logout());
     navigate("/sign-in");
   }, []);
 

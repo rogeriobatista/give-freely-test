@@ -8,6 +8,8 @@ using System.Text;
 using EmployeeManagementSystem.Domain.Employees.MappingProfiles;
 using EmployeeManagementSystem.Infra.Data.UnityOfWork;
 using EmployeeManagementSystem.Infra.IoC.Configurations;
+using EmployeeManagementSystem.Domain.Users.MappingProfiles;
+using EmployeeManagementSystem.Domain.Users.Middlewares;
 
 // Configure Culture
 CultureInfo.CurrentCulture = new CultureInfo("en-US");
@@ -26,7 +28,6 @@ builder.Services.AddContextDependecies(builder.Configuration);
 builder.Services.AddApplicationDependecies(builder.Configuration);
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(UnitOfWork)));
-
 
 builder.Services.Configure<FormOptions>(x =>
 {
@@ -97,6 +98,7 @@ builder.Services.AddSwaggerGen(c =>
 var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new EmployeeMappingProfile());
+    mc.AddProfile(new UserMappingProfile());
 });
 
 IMapper mapper = mapperConfig.CreateMapper();
@@ -117,6 +119,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseCors();
+
+app.UseMiddleware<AuthMiddleware>();
 
 app.MapControllers();
 

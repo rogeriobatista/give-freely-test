@@ -12,6 +12,14 @@ namespace EmployeeManagementSystem.Infra.Data.Mappings
         {
             builder.Property(_ => _.FirstName).IsRequired();
 
+            builder.Property(_ => _.LastName).IsRequired();
+
+            builder.Property(_ => _.Email).IsRequired();
+
+            builder.Property(_ => _.JobTitle).IsRequired();
+
+            builder.Property(_ => _.DateOfJoining).IsRequired();
+
             builder.Property(_ => _.CreatedAt).IsRequired();
 
             builder.Property(_ => _.UpdatedAt).IsRequired();

@@ -1,5 +1,5 @@
-﻿using EmployeeManagementSystem.Domain.Employees.Dtos;
-using EmployeeManagementSystem.Domain.Employees.Interfaces;
+using EmployeeManagementSystem.Domain.Users.Dtos;
+using EmployeeManagementSystem.Domain.Users.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,21 +7,21 @@ namespace EmployeeManagementSystem.Api.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/employees")]
-    public class EmployeeController : ControllerBase
+    [Route("api/user")]
+    public class UserController : ControllerBase
     {
-        private readonly IEmployeeService _service;
+        private readonly IUserService _service;
 
-        public EmployeeController(IEmployeeService service)
+        public UserController(IUserService service)
         {
             _service = service;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get(string? filter = null)
+        public async Task<IActionResult> Get()
         {
-            var response = await _service.GetAsync(filter);
+            var response = await _service.GetAsync();
 
             return Ok(response);
         }
@@ -39,17 +39,28 @@ namespace EmployeeManagementSystem.Api.Controllers
             return NotFound();
         }
 
-        [HttpPost("")]
+        [AllowAnonymous]
+        [HttpPost("sign-in")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> SignIn([FromBody] UserSignInDto dto)
+        {
+            var response = await _service.SignInAsync(dto);
+
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("sign-up")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] EmployeeDto dto)
+        public async Task<IActionResult> SignUp([FromBody] UserDto dto)
         {
             try
             {
                 var response = await _service.CreateAsync(dto);
 
                 if (response != null && !response.Errors.Any())
-                    return Created("", response);
+                    return Created("sign-up", response);
 
                 return BadRequest(response?.Errors);
             }
@@ -59,10 +70,23 @@ namespace EmployeeManagementSystem.Api.Controllers
             }
         }
 
+        [HttpPost("{id}/change-password")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ChangePassword([FromRoute] int id, [FromBody] string password)
+        {
+            var response = await _service.ChangePasswordAsync(id, password);
+
+            if (response != null && !response.Errors.Any())
+                return NoContent();
+
+            return BadRequest(response?.Errors);
+        }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] EmployeeDto dto)
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UserDto dto)
         {
             var response = await _service.UpdateAsync(id, dto);
 

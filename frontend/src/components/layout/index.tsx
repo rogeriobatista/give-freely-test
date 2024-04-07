@@ -7,12 +7,13 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
 const AppLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -25,22 +26,23 @@ const AppLayout = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["0"]}
+          defaultSelectedKeys={["/"]}
+          selectedKeys={[location.pathname]}
           items={[
             {
-              key: "0",
+              key: "/",
               icon: <HomeOutlined />,
               label: "Home",
               onClick: () => navigate(""),
             },
             {
-              key: "1",
+              key: "/employees",
               icon: <UserOutlined />,
               label: "Employees",
               onClick: () => navigate("/employees"),
             },
             {
-              key: "2",
+              key: "/logout",
               icon: <LogoutOutlined />,
               label: "Logout",
               onClick: () => navigate("/sign-out"),

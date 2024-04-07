@@ -8,7 +8,7 @@ interface State {
 }
 export const initialLoginState: State = {
   authToken: "",
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 const loginSlice = createSlice({
   name: 'login',
@@ -18,11 +18,13 @@ const loginSlice = createSlice({
       state.authToken = action.payload.authToken;
       state.isLoggedIn = true;
       state.user = action.payload.user;
+      localStorage.setItem("accessToken", state.authToken);
     },
     logout: (state) => {
       state.isLoggedIn = false;
       state.authToken = "";
       state.user = undefined;
+      localStorage.removeItem("accessToken");
     }
   }
 });

@@ -34,8 +34,8 @@ export const upsertEmployee = (employee: ICreateEmployee, id?: number) => async(
     await updateEmployeeAsync(id, employee);
     dispatch(updateEmployee(employee));
   } else {
-    await createEmployeeAsync(employee);
-    dispatch(addEmployee(employee));
+    const response = await createEmployeeAsync(employee);
+    dispatch(addEmployee(response.data));
   }
 
   dispatch(setLoading(false));

@@ -5,9 +5,7 @@ const HomePage = () => {
   return (
     <Row justify="center" align="middle">
       <Col span={24}>
-        <Breadcrumb>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-        </Breadcrumb>
+        <Breadcrumb items={[{ title: "Home" }]}></Breadcrumb>
       </Col>
       <Col span={24} flex={1} style={{ marginTop: 50 }}>
         <Row justify="center" align="middle">
