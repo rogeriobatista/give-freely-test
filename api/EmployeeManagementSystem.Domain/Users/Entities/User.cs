@@ -10,6 +10,8 @@ namespace EmployeeManagementSystem.Domain.Users.Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
+        protected User() { }
+
         public User(string name, string email, string password)
         {
             Name = name;
@@ -31,6 +33,17 @@ namespace EmployeeManagementSystem.Domain.Users.Entities
 
             ValidationResult = Validate(this);
             return ValidationResult.IsValid;
+        }
+
+        public static User Seed()
+        {
+            return new User
+            {
+                Id = 1,
+                Name = "Admin",
+                Email = "admin@ems.com",
+                Password = "p@ssw0rd".Sha256()
+            };
         }
     }
 }

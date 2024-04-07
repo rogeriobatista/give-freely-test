@@ -25,6 +25,8 @@ namespace EmployeeManagementSystem.Infra.Data.Mappings
             builder.Ignore(_ => _.RuleLevelCascadeMode);
             builder.Ignore(_ => _.ValidationResult);
 
+            builder.HasData(User.Seed());
+
             builder.ToTable(StringResource.UserTableName);
         }
     }
