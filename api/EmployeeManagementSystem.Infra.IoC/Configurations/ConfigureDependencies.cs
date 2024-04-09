@@ -8,6 +8,9 @@ using EmployeeManagementSystem.Infra.Data.Repositories;
 using EmployeeManagementSystem.Infra.Data.UnityOfWork;
 using EmployeeManagementSystem.Domain.Users.Interfaces;
 using EmployeeManagementSystem.Domain.Users.Services;
+using AutoMapper;
+using EmployeeManagementSystem.Domain.Employees.MappingProfiles;
+using EmployeeManagementSystem.Domain.Users.MappingProfiles;
 
 namespace EmployeeManagementSystem.Infra.IoC.Configurations
 {
@@ -21,7 +24,7 @@ namespace EmployeeManagementSystem.Infra.IoC.Configurations
             });
         }
 
-        public static void AddApplicationDependecies(this IServiceCollection services, IConfiguration configuration)
+        public static void AddApplicationDependecies(this IServiceCollection services)
         {
             services.AddScoped<IUnityOfWork, UnitOfWork>();
             services.AddSingleton<IAuthService, AuthService>();
@@ -31,6 +34,22 @@ namespace EmployeeManagementSystem.Infra.IoC.Configurations
 
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        }
+
+        public static IMapper CreateMapper()
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new EmployeeMappingProfile());
+                mc.AddProfile(new UserMappingProfile());
+            });
+
+            return mapperConfig.CreateMapper();
+        }
+
+        public static void AddAutoMapper(this IServiceCollection services)
+        {
+            services.AddSingleton(CreateMapper());
         }
     }
 }

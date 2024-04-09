@@ -1,15 +1,12 @@
-using AutoMapper;
+using EmployeeManagementSystem.Domain.Users.Middlewares;
+using EmployeeManagementSystem.Infra.Data.UnityOfWork;
+using EmployeeManagementSystem.Infra.IoC.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
 using System.Text;
-using EmployeeManagementSystem.Domain.Employees.MappingProfiles;
-using EmployeeManagementSystem.Infra.Data.UnityOfWork;
-using EmployeeManagementSystem.Infra.IoC.Configurations;
-using EmployeeManagementSystem.Domain.Users.MappingProfiles;
-using EmployeeManagementSystem.Domain.Users.Middlewares;
 
 // Configure Culture
 CultureInfo.CurrentCulture = new CultureInfo("en-US");
@@ -25,7 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddContextDependecies(builder.Configuration);
-builder.Services.AddApplicationDependecies(builder.Configuration);
+builder.Services.AddApplicationDependecies();
+builder.Services.AddAutoMapper();
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(UnitOfWork)));
 
@@ -94,15 +92,6 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-
-var mapperConfig = new MapperConfiguration(mc =>
-{
-    mc.AddProfile(new EmployeeMappingProfile());
-    mc.AddProfile(new UserMappingProfile());
-});
-
-IMapper mapper = mapperConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 
