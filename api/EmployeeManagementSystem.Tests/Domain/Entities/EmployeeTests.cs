@@ -3,7 +3,7 @@ using FluentAssertions;
 
 namespace EmployeeManagementSystem.Tests.Domain.Entities
 {
-    public class EntityTests
+    public class EmployeeTests
     {
         [Fact]
         public void ShouldValidateEmployeeWithValidValues()
