@@ -11,6 +11,7 @@ using EmployeeManagementSystem.Domain.Users.Services;
 using AutoMapper;
 using EmployeeManagementSystem.Domain.Employees.MappingProfiles;
 using EmployeeManagementSystem.Domain.Users.MappingProfiles;
+using System.Diagnostics.Metrics;
 
 namespace EmployeeManagementSystem.Infra.IoC.Configurations
 {

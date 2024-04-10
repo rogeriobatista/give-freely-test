@@ -1,10 +1,13 @@
 using EmployeeManagementSystem.Domain.Users.Middlewares;
+using EmployeeManagementSystem.Infra.Data.Contexts;
 using EmployeeManagementSystem.Infra.Data.UnityOfWork;
 using EmployeeManagementSystem.Infra.IoC.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.Text;
 
@@ -95,7 +98,13 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-if ( app.Environment.IsDevelopment() )
+using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetService<EmployeeManagementSystemContext>();
+    context.Database.Migrate();
+}
+
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
