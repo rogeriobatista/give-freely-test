@@ -8,6 +8,8 @@ Employee Management System is a fullstack web application based on C# .Net and R
 
 You will need to install Docker and Docker Compose
 
+[Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
 ## Creating the database container
 
 The first step is to navigate to the “db” directory.
@@ -51,3 +53,4 @@ npm i
 ```
 npm run dev
 ```
+
