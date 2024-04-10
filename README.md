@@ -2,6 +2,12 @@
 
 Employee Management System is a fullstack web application based on C# .Net and React
 
+The api of this project is based on the layered architecture model, where each part is separated into projects, isolating responsibilities.
+
+For the data layer, the repository pattern was implemented, abstracting the database, giving more flexibility for future changes.
+
+The frontend follows the componentized web application model, enabling high reuse and easy implementation of the microfrontend standard.
+
 ## Database
 
 ### Prerequisites and Setup
