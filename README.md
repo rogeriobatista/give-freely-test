@@ -4,13 +4,13 @@ Employee Management System is a fullstack web application based on C# .Net and R
 
 ## Database
 
-## Prerequisites and Setup
+### Prerequisites and Setup
 
 You will need to install Docker and Docker Compose
 
 [Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
-## Creating the database container
+### Creating the database container
 
 The first step is to navigate to the “db” directory.
 
@@ -22,7 +22,7 @@ docker-compose up -d
 
 ## Api
 
-## Prerequisites and Setup
+### Prerequisites and Setup
 
 You will need to install the dotnet 8 SDK and Cli
 
@@ -38,7 +38,7 @@ dotnet run
 
 ## Web
 
-## Prerequisites and Setup
+### Prerequisites and Setup
 
 The first step is to navigate to the “frontend” directory.
 
