@@ -1,5 +1,4 @@
-﻿using EmployeeManagementSystem.Domain.Employees.Entities;
-using EmployeeManagementSystem.Domain.Users.Entities;
+﻿using EmployeeManagementSystem.Domain.Users.Entities;
 using FluentAssertions;
 
 namespace EmployeeManagementSystem.Tests.Domain.Entities
@@ -9,7 +8,7 @@ namespace EmployeeManagementSystem.Tests.Domain.Entities
         [Fact]
         public void ShouldValidateUserWithValidValues()
         {
-            var user = new User("firstName", "email@email.com", "password");
+            var user = new User("name", "email@email.com", "password");
 
             user.Validate().Should().BeTrue();
         }
@@ -17,7 +16,7 @@ namespace EmployeeManagementSystem.Tests.Domain.Entities
         [Fact]
         public void ShouldValidateUserWithInvalidValues()
         {
-            var user = new User("firstName", "email", "password");
+            var user = new User("name", "email", "password");
 
             user.Validate().Should().BeFalse();
             user.ValidationResult.Should().NotBeNull();

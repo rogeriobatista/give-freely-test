@@ -65,6 +65,28 @@ namespace EmployeeManagementSystem.Tests.Controllers
         }
 
         [Fact]
+        public async Task ShouldSignInAnUserAndReturnOk()
+        {
+            var userSignInDto = _fixture.Create<UserSignInDto>();
+            var userSignInResponseDto = _fixture.Create<UserSignInResponseDto>();
+
+            _userServiceMock.Setup(x => x.SignInAsync(userSignInDto)).ReturnsAsync(userSignInResponseDto);
+
+            var response = await _controller.SignIn(userSignInDto);
+
+            var okResult = response as OkObjectResult;
+
+            var userSignInResponse = okResult?.Value as UserSignInResponseDto;
+
+            okResult.Should().NotBeNull();
+            okResult.StatusCode.Should().Be((int)HttpStatusCode.OK);
+            userSignInResponse.AuthToken.Should().NotBeNull();
+            userSignInResponse.User.Should().NotBeNull();
+
+            _userServiceMock.Verify(x => x.SignInAsync(userSignInDto), Times.Once);
+        }
+
+        [Fact]
         public async Task ShouldCreateAnUserAndReturnCreated()
         {
             var userDto = _fixture.Create<UserDto>();
@@ -100,6 +122,25 @@ namespace EmployeeManagementSystem.Tests.Controllers
             badRequestResult.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
 
             _userServiceMock.Verify(x => x.CreateAsync(userDto), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldChangeUserPasswordAndReturnNoContent()
+        {
+            var userResponseDto = _fixture.Create<UserResponseDto>();
+
+            userResponseDto.Errors = [];
+
+            _userServiceMock.Setup(x => x.ChangePasswordAsync(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(userResponseDto);
+
+            var response = await _controller.ChangePassword(1, "passwordUpdated");
+
+            var noContentResult = response as NoContentResult;
+
+            noContentResult.Should().NotBeNull();
+            noContentResult.StatusCode.Should().Be((int)HttpStatusCode.NoContent);
+
+            _userServiceMock.Verify(x => x.ChangePasswordAsync(It.IsAny<int>(), It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
