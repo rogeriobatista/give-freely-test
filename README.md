@@ -54,3 +54,16 @@ npm i
 npm run dev
 ```
 
+## Login
+
+The application automatically creates credentials for administrator access
+
+Username
+```
+admin@ems.com
+```
+
+Password
+```
+p@ssw0rd
+```
